@@ -1,5 +1,4 @@
 from pwn import *
-#import binascii
 from base64 import b64decode
 from decimal import Decimal
 io = remote('localhost',1337)#,level="DEBUG")
@@ -8,6 +7,7 @@ a,b = data.split(': ')
 print(a)
 def rot13(str):
     return ''.join([chr((ord(letter) - 97 + 13) % 26 + 97) for letter in str.lower()])
+s = ''
 if "base64" in a :
     v = b64decode(b)
     print("b64")
@@ -17,26 +17,20 @@ elif "rot_13" in a :
     print("rot13")
     v=rot13(b)
     io.sendline(v)
-    
 elif "decimal" in a :
     result = 0
     b = b.split()
     c = []
     v = ''
-    print (b)
+    print(b)
     for d in b:
        integer = int(b[result])
        c.append(integer)
        v = chr(c[result])
-#       v.append.append(v)
-#       print(v)
-       print((v),end="")
-#       s.strip()
-#       print (s)
+       s = ''.join((s,v))
        result += 1
-#    s.append(v)
-#    print(s)
-    io.sendline(v)#,end="")
+    print(s)
+    io.sendline(s)
 else :
     print(error)
 print(io.recvline())
