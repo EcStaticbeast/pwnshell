@@ -3,7 +3,7 @@ from base64 import b64decode
 from decimal import Decimal
 
 
-io = remote('localhost',1337)#,level="DEBUG")
+io = remote('localhost',1337)#,(level="DEBUG")
 data =  io.recvlines(2)[1].decode()
 a,b = data.split(': ')
 print(a)
@@ -43,12 +43,12 @@ elif "decimal" in a :
 else :
     print(error)
 
-stage2 =  io.recvall()
+stage2 =  io.recv()
 # print(stage2)
 e,f,g = stage2.split(b':',(2))
 # print(e)
-# print(f) #cipher
-# print(g) #key
+print(f) #cipher
+print(g) #key
 
 
 def decryption(a,b): 
@@ -67,5 +67,23 @@ def decryption(a,b):
         
 f="KOGPC BFVGS"
 g="DORAEMON"
+t = f.replace(" ","")
 
-print(decryption(f,g))  
+print(decryption(t,g))  
+w = (decryption(t,g))
+
+# print(w)                                                #decrypted text
+
+j = ("" . join(w))[0:5],("" . join(w))[5:10]
+k = (j[0] + " " + j[1])
+
+print (k)
+io.sendline (k)
+
+
+stage3 = io.recv()
+print(stage3)
+
+
+# print(io.recv())
+# print(io.interactive())
