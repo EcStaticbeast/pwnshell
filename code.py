@@ -145,4 +145,4 @@ print (power)
 result = "R5A_c4n_b3_3xpl0it3d"
 io.sendline(result)
 print(io.recv())
-print(io.interactive())
+# print(io.interactive())
